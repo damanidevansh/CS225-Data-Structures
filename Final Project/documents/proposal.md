@@ -1,0 +1,31 @@
+# **Final Project Proposal**
+ 
+## **Leading Question**
+Our goal is to optimize and find a shortest path betwen airports(nodes) using routes listed in our data set. To acheive this, we will create a graph consisting of nodes that will serve as airports and edges that will serve as routes. Two algorithms that will help us achieve this goal are the Dijkstra algorithm that finds the shortest path between nodes in a graph structure and the Bellman-Ford algorithm. More specifically the Bellman-Ford algorithm is similar to the Dijkstra algorithm in that it finds the shortest path, however unlike the Dijkstra algorithm the Bellman-Ford algorithm can work on graphs with negative weights. Furthermore, We will traverse all nodes using a Breadth-First Search. We can also use the BFS to find a shortest path between two nodes.
+
+## **Dataset Acquisition and Processing**
+ 
+- ## **Data Format**
+The source of our data set is the Open Flights data set. The input format of the data set is a CSV file. We are going to be using the routes database and the airports database. The airports dataset has 14,110 data points and the routes dataset has 67,663 data points, and we plan on using every datapoint because we will want to have every possible route.
+ 
+- ## **Data Correction**
+For the airport database, we will parse only needed attributes, such as airport name, airport country, airport coordinates( longitude and latitude), and IATA code. For the routes database, we will only parse the IATA identifier for the airport as this will create the edges of our graph. Another thing that we will consider is whenever a particular IAIA in the airport database is a nullptr. In this case we would exclude the airport from the graph as it would never have an edge therefore serving no purpose. Another data correction that we will cosnider is whenever an airports latitude and longitude are not provided. In this case we would also exclude the airport in the graph. Furthermore when parsing our routes dataset if either one of the IAIA does not match a node(airport) in our graph we would not include this edge in the graph structure. Finally if we have identical airports and routes we would exclude these from the graph structure.
+ 
+- ## **Data Storage**
+We will store our data as a graph, where airports will be treated as nodes that will each have a set of edges that will represent our routes. The total storage cost of airports and routes within our graph is O(n) where n is the number of unique datapoints in our dataset because in the worst case we will have to store each airport as a node in the graph. The data structure that we will use to implement this is a unordered map where each node (airport) will be a key in the map and the value for each key will be the address to the first element in a linked list. The elements in the linked list will represent the nodes that the specific key has an edge with.
+ 
+## **Graph Algorithms**
+To successfully implement this project we will need to create a function for the Dijkstra algorithm, Bellman-Ford algorithm, and a BFS traversal class.
+
+- ## **Dijkstra Algorithm**
+The Dijkstra algorithm will take a source and destination IATA code as inputs and it would output each airport IATA that was visited in the shortest path from the source IATA to the destination IATA. The Dijkstra algorithm will allow us to use weights such as the distance in km to find the shortest path from a source and destination. The output of this algorithm will be the nodes that the algorithm visited when determining the shortest path. If we were to successfully implement a priority queue we would have a time complexity of O((E + N)log(N)) where E is the number of edges and N is the number of nodes. The space complexity is O(N) because at worst case we have to have all nodes in the priority queue.
+
+- ## **Bellman-Ford Algorithm**
+Similarly to the Dijkstra algorithm the Bellman-Ford algorithm helps us find the shorest path from a node (airport) to all other nodes (airports) of a weighted graph. The approach that Bellman-Ford takes in finding the shorest path from a node to all other nodes is that it overestimates the length of paths and eventually improves these path lengths by traversing the graph and finding new shorter paths. The Bellman-Ford algorithm will take a source and destination IATA code as inputs and it would output each airport airport IATA that was visited in the shortest path from the source IATA to the destination IATA. The worst case time complexity of the Bellman-Ford algorithm is O(NE) where N is the number of nodes (airports) and E is the number of edges (routes). The worst case space complexity of the Bellman-Ford algorithm is O(N) where N is the number of nodes (airports). The reasoning behind this is that at worst case we need to store the distance of all nodes.
+
+- ## **Breadth-First Search Traversal**
+The Breadth-First Search will take in a set of IATA codes (airports) as well as a source and a destination IATA. This traversal will allow us to traverse through each node as well as find the shortest path from the source to destination and output these traversals. We will use a similar approach as in mp_traversals to iterate through the BFS. The BFS time complexity is O(E+N) where E is the number of edges and N is the number of nodes. BFS will utilize a queue so each node is enqueued once and each edge is checked once when adding neighbors of a certain node to the queue. The space complexity of BFS is O(N) where N is the number of nodes. This is because at worst case we have to store all the nodes in the queue at one time.
+ 
+## **Timeline**
+The first step that we will want to accomplish is to perform the data correction and data storage steps. We expect to finish this portion in a weeks time. Therefore we want to meet this goal by April 2 2022. Our next goal will be to implement the Breadth-First Search Traversal whihc we will want to be accomplish by April 13 2022. After this we will want to implement the Dijkstra Algorithm which we will want to accomplish by April 23 2022. Finally we will want to implement the Bellman-Ford algorithm by April 30 2022. This we leave us a week to finish the presentation. The test cases for each algorithm will be implemented along with the respective algorithm and due date.
+
